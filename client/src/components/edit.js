@@ -14,7 +14,7 @@ import { useParams, useNavigate } from "react-router";
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`http://localhost:5000/record/${params.id.toString()}`);
+     const response = await fetch(`http://localhost:5001/record/${params.id.toString()}`);
       if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
        window.alert(message);
@@ -47,7 +47,7 @@ import { useParams, useNavigate } from "react-router";
      level: form.level,
    };
     // This will send a post request to update the data in the database.
-   await fetch(`http://localhost:5000/update/${params.id}`, {
+   await fetch(`http://localhost:5001/update/${params.id}`, {
      method: "POST",
      body: JSON.stringify(editedPerson),
      headers: {
