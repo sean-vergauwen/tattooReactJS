@@ -28,6 +28,9 @@ export default function Navbar() {
              <NavLink className="nav-link" to="/create">
                Create Record
              </NavLink>
+             <NavLink className="nav-link" to="/carte">
+               carte interactive
+             </NavLink>
            </li>
          </ul>
        </div>
