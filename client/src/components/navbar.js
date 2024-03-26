@@ -4,13 +4,13 @@ import "bootstrap/dist/css/bootstrap.css";
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav  className="navbar navbar-expand-lg text-light bg-dark ">
       <div className="container">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand text-light text-uppercase" to="/">
           AppTattoo
         </NavLink>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler "
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -20,27 +20,32 @@ export default function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/" exact>
+        <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item border rounded border-light mx-3">
+              <a aria-current="page" class="nav-link text-light active" href="/">
                 Accueil
-              </NavLink>
+              </a>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/favoris">
+            <li class="nav-item border rounded border-light mx-3">
+              <a class="nav-link text-light" href="/favoris">
                 Mes Favoris
-              </NavLink>
+              </a>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/carte">
-                La Carte
-              </NavLink>
+            <li class="nav-item border rounded border-light mx-3">
+              <a class="nav-link text-light" href="/carte">
+                Carte
+              </a>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/compte">
-                Compte
-              </NavLink>
+            <li class="nav-item border rounded border-light mx-3">
+              <a class="nav-link text-light" href="/connect">
+                Se connecter
+              </a>
+            </li>
+            <li class="nav-item border rounded border-light mx-3">
+              <a class="nav-link text-light" href="/create">
+                Créer un compte
+              </a>
             </li>
           </ul>
         </div>
