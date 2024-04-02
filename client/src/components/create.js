@@ -67,6 +67,36 @@ export default function Create() {
           onChange={(e) => updateForm({ level: e.target.value })}
           />
       </div>
+      <div className="form-group">
+         <label htmlFor="name">Numéro de téléphone</label>
+         <input
+           type="number"
+           className="form-control"
+           id="numTel"
+           value={form.numTel}
+           onChange={(e) => updateForm({ numTel : e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="name">Photo de profil</label>
+         <input
+           type="text"
+           className="form-control"
+           id="photoDeProfil"
+           value={form.photoDeProfil}
+           onChange={(e) => updateForm({ photoDeProfil : e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="name">Portfolio</label>
+         <input
+           type="text"
+           className="form-control"
+           id="portofolio"
+           value={form.portofolio}
+           onChange={(e) => updateForm({ portofolio : e.target.value })}
+         />
+       </div>
        <div className="form-group">
          <input
            type="submit"
@@ -74,6 +104,7 @@ export default function Create() {
            className="btn btn-primary"
          />
        </div>
+       
 
      </form>
    </div>

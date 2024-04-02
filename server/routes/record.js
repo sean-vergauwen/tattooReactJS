@@ -11,18 +11,18 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
  
-// This section will help you get a list of all the records.
+// This section will help you get a list of all the tatoueurs.
 recordRoutes.route("/record").get(async function (req, response) {
   let db_connect = dbo.getDb();
 
   try {
-    var records = await db_connect
-      .collection("records")
+    var tatoueurs = await db_connect
+      .collection("tatoueurs")
       .find({})
       .toArray();
-    response.json(records);
+    response.json(tatoueurs);
   } catch (e) {
-    console.log("An error occurred pulling the records. " + e);
+    console.log("An error occurred pulling the tatoueurs. " + e);
   }
 
 });
@@ -32,7 +32,7 @@ recordRoutes.route("/record").get(async function (req, response) {
     let db_connect = dbo.getDb();
     let myquery = { _id: new ObjectId(req.params.id) };
     db_connect
-      .collection("records")
+      .collection("tatoueurs")
       .findOne(myquery, function (err, result) {
         if (err) throw err;
         res.json(result);
@@ -46,8 +46,15 @@ recordRoutes.route("/record").get(async function (req, response) {
       name: req.body.name,
       address: req.body.position,
       website : req.body.level,
+      numTel : req.body.numTel,
+      photoDeProfil : req.body.photoDeProfil,
+      portofolio : req.body.portofolio,
+      description : req.body.description , 
+      styles : [], 
+      avis : [{},{}],
+      note : req.body.note ,
     };
-    db_connect.collection("records").insertOne(myobj, function (err, res) {
+    db_connect.collection("tatoueurs").insertOne(myobj, function (err, res) {
       if (err) throw err;
       response.json(res);
     });
@@ -65,7 +72,7 @@ recordRoutes.route("/record").get(async function (req, response) {
       },
     };
     db_connect
-      .collection("records")
+      .collection("tatoueurs")
       .updateOne(myquery, newvalues, function (err, res) {
         if (err) throw err;
         console.log("1 document updated");
@@ -77,7 +84,7 @@ recordRoutes.route("/record").get(async function (req, response) {
    recordRoutes.route("/:id").delete((req, response) => {
     let db_connect = dbo.getDb();
     let myquery = { _id: new ObjectId(req.params.id) };
-    db_connect.collection("records").deleteOne(myquery, function (err, obj) {
+    db_connect.collection("tatoueurs").deleteOne(myquery, function (err, obj) {
       if (err) throw err;
       console.log("1 document deleted");
       response.json(obj);
