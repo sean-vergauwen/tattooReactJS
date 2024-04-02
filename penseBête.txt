@@ -2,7 +2,6 @@ nouvelle db :
 	collection users :
 		object id 
 		nom d'utilisateur (string)
-		login (string)
 		mot de passe (string)
 		favoris : [id tatoueur] (array) 
 		préférences : [id styles] (array) 

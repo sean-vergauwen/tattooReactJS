@@ -34,48 +34,118 @@ export default function Create() {
  }
   // This following section will display the form that takes the input from the user.
  return (
-   <div>
-    <h3>Ajouter nouveau tatoueur</h3>
-     <form onSubmit={onSubmit}>
-       <div className="form-group">
-         <label htmlFor="name">Nom</label>
-         <input
-           type="text"
-           className="form-control"
-           id="name"
-           value={form.name}
-           onChange={(e) => updateForm({ name: e.target.value })}
-         />
-       </div>
-       <div className="form-group">
-         <label htmlFor="position">Addresse</label>
-         <input
-           type="text"
-           className="form-control"
-           id="position"
-           value={form.position}
-           onChange={(e) => updateForm({ position: e.target.value })}
-         />
-       </div>
-      <div className="form-group">
-        <label htmlFor="website">Site Web</label> 
-          <input
-          type="text"
-          className="form-control"
-          id="positionIntern"
-          value={form.level}
-          onChange={(e) => updateForm({ level: e.target.value })}
-          />
-      </div>
-       <div className="form-group">
-         <input
-           type="submit"
-           value="Ajouter"
-           className="btn btn-primary"
-         />
-       </div>
+  <div>
+      <div id="container" class="d-flex">
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+          <div class="row border rounded-3 p-3 bg-white shadow box-area">
+            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                <div
+                  class="nav-link p-3 mb-2 bg-dark text-white "
+                  id="tab-login"
+                  data-mdb-pill-init
+                  href="#pills-login"
+                  role="tab"
+                  aria-controls="pills-login"
+                  aria-selected="true"
+                  > UTILISATEUR</div>
+            </ul>
+            <form onSubmit={onSubmit}>
+              <div className="form-outline mb-4">
+                <label class="form-label" htmlFor="username">Nom d'utilisateur</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  value={form.username}
+                  onChange={(e) => updateForm({ name: e.target.value })}
+                />
+              </div>
+              <div className="form-outline mb-4">
+                <label class="form-label" htmlFor="usernamepassword">Mot de passe</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="usernamepassword"
+                  value={form.usernamepassword}
+                  onChange={(e) => updateForm({ position: e.target.value })}
+                />
+              </div>
+              <div className="form-outline mb-4 d-flex justify-content-center ">
+                <input
+                  type="submit"
+                  value="Créer"
+                  className="btn btn-dark"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
 
-     </form>
-   </div>
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+          <div class="row border rounded-3 p-3 bg-white shadow box-area">
+            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                <div
+                  class="nav-link p-3 mb-2 bg-dark text-white"
+                  id="tab-login"
+                  data-mdb-pill-init
+                  href="#pills-login"
+                  role="tab"
+                  aria-controls="pills-login"
+                  aria-selected="true"
+                  >TATOUEUR</div>
+            </ul>
+            <form onSubmit={onSubmit}>
+              <div className="form-outline mb-4">
+                <label class="form-label" htmlFor="tatooname">Nom de tatoueur</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  value={form.name}
+                  onChange={(e) => updateForm({ name: e.target.value })}
+                />
+              </div>
+              <div className="form-outline mb-4">
+                <label class="form-label" htmlFor="tatoonamepassword">Mot de passe</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="tatoonamepassword"
+                  value={form.tatoonamepassword}
+                  onChange={(e) => updateForm({ position: e.target.value })}
+                />
+              </div>
+              <div className="form-outline mb-4">
+                <label class="form-label" htmlFor="tatoonameaddress">Adresse</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="tatoonameaddress"
+                  value={form.tatoonameaddress}
+                  onChange={(e) => updateForm({ position: e.target.value })}
+                />
+              </div>
+              <div className="form-outline mb-4">
+                <label class="form-label" htmlFor="tatoonamewebsite">Site web</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="tatoonamewebsite"
+                  value={form.tatoonamewebsite}
+                  onChange={(e) => updateForm({ position: e.target.value })}
+                />
+              </div>
+              <div className="form-outline mb-4 d-flex justify-content-center ">
+                <input
+                  type="submit"
+                  value="Créer"
+                  className="btn btn-dark"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
  );
 }
