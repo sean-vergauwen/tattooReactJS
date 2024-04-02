@@ -59,8 +59,8 @@ export default function RecordList() {
         <thead className="thead-dark">
           <tr>
             <th scope="col">Nom</th>
-            <th scope="col">Lieu</th>
-            <th scope="col">Website</th>
+            <th scope="col">Addresse</th>
+            <th scope="col">Site Web</th>
           </tr>
         </thead>
         <tbody>{recordList()}</tbody>
