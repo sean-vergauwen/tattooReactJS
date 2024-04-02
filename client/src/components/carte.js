@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import customIcon from '/Users/maxime/Documents/GitHub/AppTatto/client/src/images/points.png'; // Chemin vers votre icône personnalisée
+import customIcon from '../images/points.png'; // Chemin vers votre icône personnalisée
 
 export default function MapWithMarkers() {
   const [records, setRecords] = useState([]);

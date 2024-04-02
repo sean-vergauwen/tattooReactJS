@@ -96,7 +96,7 @@ export default function Create() {
             </ul>
             <form onSubmit={onSubmit}>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="tatooname">Nom de tatoueur</label>
+                <label class="form-label" htmlFor="name">Nom de tatoueur</label>
                 <input
                   type="text"
                   className="form-control"
@@ -106,33 +106,33 @@ export default function Create() {
                 />
               </div>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="tatoonamepassword">Mot de passe</label>
+                <label class="form-label" htmlFor="password">Mot de passe</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="tatoonamepassword"
-                  value={form.tatoonamepassword}
-                  onChange={(e) => updateForm({ position: e.target.value })}
+                  id="password"
+                  value={form.password}
+                  onChange={(e) => updateForm({ password: e.target.value })}
                 />
               </div>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="tatoonameaddress">Adresse</label>
+                <label class="form-label" htmlFor="address">Adresse</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="tatoonameaddress"
-                  value={form.tatoonameaddress}
-                  onChange={(e) => updateForm({ position: e.target.value })}
+                  id="address"
+                  value={form.address}
+                  onChange={(e) => updateForm({ address: e.target.value })}
                 />
               </div>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="tatoonamewebsite">Site web</label>
+                <label class="form-label" htmlFor="website">Site web</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="tatoonamewebsite"
-                  value={form.tatoonamewebsite}
-                  onChange={(e) => updateForm({ position: e.target.value })}
+                  id="website"
+                  value={form.website}
+                  onChange={(e) => updateForm({ website: e.target.value })}
                 />
               </div>
               <div className="form-outline mb-4 d-flex justify-content-center ">
