@@ -1,0 +1,90 @@
+pense bête : 
+	collection users :
+		object id 
+		nom d'utilisateur (string)
+		login (string)
+		mot de passe (string)
+		favoris : [id tatoueur] (array) 
+		préférences : [id styles] (array) 
+	collection styles : 
+		object id : 
+		styles (string)
+	collection tatoueurs : 
+		object id 
+		name (string)
+		sitesWeb (array) 
+		photoDeProfil (string)
+		portofolio (array)
+		description (string)
+		avis : [{id du user, avis écrit}]
+		note (number)  
+		
+		
+
+synthaxe mql :  
+
+
+TATOUEURS : ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+use ("employees")
+
+db.records.insertOne({
+  name: "Nom du Tatoueur",
+  address : "montée de la chapelle",
+  website: ["https://site1.com", "pageinstagram"],
+  numTel : 45482652546,
+  photoDeProfil: "urlPhoto",
+  portofolio: [
+    "urlPhoto",
+    "urlPhoto",
+  ],
+  description: "Description du tatoueur faite par le tatoueur",
+  styles [idstyle]
+  avis: [
+    {
+      idDuUser: "identifiantUniqueDuUser1",
+      avisÉcrit: "Très satisfait du travail effectué, artiste incroyable !"
+    },
+    {
+      idDuUser: "identifiantUniqueDuUser2",
+      avisÉcrit: "Résultat incroyable, dépasse toutes mes attentes"
+    },
+    {
+      idDuUser: "identifiantUniqueDuUser3",
+      avisÉcrit: "Travail minutieux et détaillé, ambiance agréable."
+    },
+  ],
+  note: 4.5
+});
+
+
+UTILISATEURS : ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+use("employees")
+
+db.users.insertOne({
+  nomUtilisateur: "NomUtilisateurExemple",
+  login: "loginExemple",
+  motDePasse: "motDePasseSécurisé",
+  favoris: [
+    "idTatoueur1",
+    "idTatoueur2",
+  ],
+  preferences: [
+    "idStyle1",
+    "idStyle2",
+  ]
+});
+
+STYLES  : ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+use("employees")
+
+db.styles.insertOne({
+  nomStyle: "Traditionnel"
+});
+
+
+
