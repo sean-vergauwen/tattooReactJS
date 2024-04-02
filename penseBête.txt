@@ -1,4 +1,4 @@
-pense bête : 
+nouvelle db : 
 	collection users :
 		object id 
 		nom d'utilisateur (string)
@@ -16,7 +16,7 @@ pense bête :
 		photoDeProfil (string)
 		portofolio (array)
 		description (string)
-		avis : [{id du user, avis écrit}]
+		avis : [{id du user, avis écrit}] (array d'objets) 
 		note (number)  
 		
 		
@@ -39,7 +39,7 @@ db.records.insertOne({
     "urlPhoto",
   ],
   description: "Description du tatoueur faite par le tatoueur",
-  styles [idstyle]
+  styles [idstyles]
   avis: [
     {
       idDuUser: "identifiantUniqueDuUser1",
