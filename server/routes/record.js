@@ -49,7 +49,7 @@ recordRoutes.route("/record").get(async function (req, response) {
       website : req.body.website,
       numTel : req.body.numTel,
       photoDeProfil : req.body.photoDeProfil,
-      portofolio : req.body.portofolio,
+      portofolio : [req.body.portofolio],
       description : req.body.description, 
       styles : [],
       avis : [{},{}],

@@ -1,0 +1,25 @@
+.grid {
+    display: grid;
+    place-content: center;
+    grid-template-columns: repeat(3, 350px);
+    grid-auto-columns: repeat(3, 350px);
+    gap: 20px;
+}
+
+
+
+.contentCard {
+    max-width: 1130px;
+    width: 100%;
+}
+
+.searchBar {
+    padding: 10px 15px;
+    border: 2px solid var(--gray-2);
+    border-radius: 20px;
+
+    input {
+        outline: 0;
+        border: 0;
+    }
+}

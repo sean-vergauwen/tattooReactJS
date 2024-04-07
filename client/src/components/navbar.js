@@ -23,27 +23,27 @@ export default function Navbar() {
         <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item border rounded border-light mx-3">
-              <a aria-current="page" class="nav-link text-light active" href="/">
+              <a aria-current="page" class="nav-link text-light active btn" href="/">
                 Accueil
               </a>
             </li>
             <li class="nav-item border rounded border-light mx-3">
-              <a class="nav-link text-light" href="/favoris">
+              <a class="nav-link text-light btn" href="/favoris">
                 Mes Favoris
               </a>
             </li>
             <li class="nav-item border rounded border-light mx-3">
-              <a class="nav-link text-light" href="/carte">
+              <a class="nav-link text-light btn " href="/carte">
                 Carte
               </a>
             </li>
             <li class="nav-item border rounded border-light mx-3">
-              <a class="nav-link text-light" href="/connect">
+              <a class="nav-link text-light btn" href="/connect">
                 Se connecter
               </a>
             </li>
             <li class="nav-item border rounded border-light mx-3">
-              <a class="nav-link text-light" href="/create">
+              <a class="nav-link text-light btn" href="/create">
                 Créer un compte
               </a>
             </li>

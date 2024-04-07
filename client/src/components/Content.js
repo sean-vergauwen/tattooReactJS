@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styles from './content.module.css'
+import Tatoueurs from './Tatoueurs.js';
+import {data} from '../data/tattoo.js'
+
 
 const Record = (props) => (
   <tr>
@@ -15,6 +19,9 @@ const Record = (props) => (
 
 export default function RecordList() {
   const [records, setRecords] = useState([]);
+  const tatoo = data ;
+  
+
 
   // Fetch records from the database.
   useEffect(() => {
@@ -53,6 +60,7 @@ export default function RecordList() {
 
   // Display the table with the records of individuals
   return (
+    <div>
     <div className="container mt-4">
       <h3 className="text-center mb-4">Liste de tatoueurs</h3>
       <table className="table table-bordered table-striped">
@@ -66,5 +74,24 @@ export default function RecordList() {
         <tbody>{recordList()}</tbody>
       </table>
     </div>
+
+       
+    
+
+  
+    <div className="flex-fill container p-20"> 
+        <h1 className='my-30'>Découvrez nos nouveaux tatoueurs </h1>
+        <div className={`d-flex flex-column card p-20 ${styles.contentCard} `}> 
+        
+            <div className={styles.grid}>
+                {tatoo
+                .map( (r) => (
+                <Tatoueurs  key={r._id} name ={r.name} photoDeProfil={r.photoDeProfil} address={r.address}/>
+                ))}
+            </div>
+        </div>
+    </div>
+  </div>
+    
   );
 }
