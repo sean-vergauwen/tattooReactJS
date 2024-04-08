@@ -1,11 +1,11 @@
 import styles from './Tatoueurs.module.css'
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
-function Recipe({ name, photoDeProfil, address }) {
-    const [liked, setLiked] = useState(false);
+function Recipe({ id, name, photoDeProfil, address }) {
+    let navigate = useNavigate();
     function handleClick() {
-        setLiked(!liked)
+        navigate(`/tatoueur/${id}`);
     }
     return (
         <div onClick={handleClick} className={styles.tatoueur} >
@@ -15,7 +15,7 @@ function Recipe({ name, photoDeProfil, address }) {
             <div className={`${styles.infos} d-flex flex-column justify-content-center allign-items-center `} >
                 <h3 className='mb-10'>{name}</h3>
                 <p className='mb-10'>{address}</p>
-                <i className={`fa-solid fa-heart ${liked ? 'text-primary' : ""} `}></i>
+
             </div>
 
         </div>
