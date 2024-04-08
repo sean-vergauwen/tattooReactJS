@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from './content.module.css'
 import Tatoueurs from './Tatoueurs.js';
-import {data} from '../data/tattoo.js'
+import { data } from "../data/tattoo.js"
+
 
 
 const Record = (props) => (
@@ -19,13 +20,12 @@ const Record = (props) => (
 
 export default function RecordList() {
   const [records, setRecords] = useState([]);
-  const tatoo = data ;
-  const [filter,setFilter] = useState('')
-    function handleInput(e){
-        const filter = e.target.value 
-        setFilter(filter.trim().toLowerCase());
-    }
-  
+  const [filter, setFilter] = useState('')
+  function handleInput(e) {
+    const filter = e.target.value
+    setFilter(filter.trim().toLowerCase());
+  }
+
 
 
   // Fetch records from the database.
@@ -65,42 +65,28 @@ export default function RecordList() {
 
   // Display the table with the records of individuals
   return (
-    <div>
-    <div className="container mt-4">
-      <h3 className="text-center mb-4">Liste de tatoueurs</h3>
-      <table className="table table-bordered table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Addresse</th>
-            <th scope="col">Site Web</th>
-          </tr>
-        </thead>
-        <tbody>{recordList()}</tbody>
-      </table>
-    </div>
 
-       
-    
 
-  
-    <div className="flex-fill container p-20"> 
-        <h1 className='my-30'>Découvrez nos nouveaux tatoueurs </h1>
-        <div className={`d-flex flex-column card p-20 ${styles.contentCard} `}> 
+
+
+
+    <div className="flex-fill container p-20">
+
+      <h1 className='my-30'>Découvrez nos tatoueurs </h1>
+      <div className={`d-flex flex-column card p-20 ${styles.contentCard} `}>
         <div className={`my-30 d-flex flex-row justify-content-center allign-items-center ${styles.searchBar}`}>
-                <i className="fa-solid fa-magnifying-glass mr-15"></i>
-                <input onInput={handleInput} className='flex-fill'type="text" placeholder='Rechercher'/>
-          </div>
-            <div className={styles.grid}>
-                {tatoo
-                .filter((r)=>r.name.toLowerCase().startsWith(filter))
-                .map( (r) => (
-                <Tatoueurs  key={r._id} name ={r.name} photoDeProfil={r.photoDeProfil} address={r.address}/>
-                ))}
-            </div>
+          <input onInput={handleInput} className='flex-fill' type="text" placeholder='Rechercher' />
         </div>
+        <div className={styles.grid}>
+          {records
+            .filter((r) => r.name.toLowerCase().startsWith(filter))
+            .map((r) => (
+              <Tatoueurs key={r._id} name={r.name} photoDeProfil={r.photoDeProfil} address={r.address} />
+            ))}
+        </div>
+      </div>
     </div>
-  </div>
-    
+
+
   );
 }
