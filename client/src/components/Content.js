@@ -17,7 +17,7 @@ const Record = (props) => (
   </tr>
 );
 
-export default function RecordList({ id }) {
+export default function RecordList({ }) {
   const [records, setRecords] = useState([]);
   const [filter, setFilter] = useState('')
   function handleInput(e) {
@@ -75,7 +75,7 @@ export default function RecordList({ id }) {
           <input onInput={handleInput} className='flex-fill' type="text" placeholder='Rechercher' />
         </div>
         <div className={styles.grid} >
-          {records
+          {data
             .filter((r) => r.name.toLowerCase().startsWith(filter))
             .map((r) => (
               <Tatoueurs id={r._id} name={r.name} photoDeProfil={r.photoDeProfil} address={r.address} />
