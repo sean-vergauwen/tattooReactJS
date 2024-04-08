@@ -47,7 +47,20 @@ export default function MapWithMarkers() {
         const data = await response.json();
         if (data && data.length > 0) {
           const { lat, lon } = data[0];
-          L.marker([lat, lon], { icon: customMarkerIcon }).addTo(map).bindPopup(record.name);
+          const marker = L.marker([lat, lon], { icon: customMarkerIcon }).addTo(map);
+
+          // Crée un élément HTML pour le popup qui inclut un gestionnaire de clic
+          const popupContent = `<a href="/tatoueur/${record._id}" style="text-decoration: none; color: blue;">${record.name}</a>`;
+
+          marker.bindPopup(popupContent);
+
+          // Ajoute un gestionnaire de clic directement sur le contenu du popup
+          marker.on('popupopen', () => {
+            document.querySelector(`a[href='/tatoueur/${record._id}']`).addEventListener('click', (e) => {
+              e.preventDefault(); // Empêche la navigation par défaut du lien
+              window.location.href = e.target.getAttribute('href'); // Redirige vers l'URL du tatoueur
+            });
+          });
         }
       } catch (error) {
         console.error('Error fetching coordinates:', error);

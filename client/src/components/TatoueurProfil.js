@@ -8,12 +8,12 @@ function TatoueurProfil() {
 
     const [tatoueur, setTatoueur] = useState(null);
 
-    // Fetch records from the database.
+
     useEffect(() => {
         async function getRecords() {
             const response = await fetch(`http://localhost:5001/record/`);
             if (!response.ok) {
-                const message = `An error occurred: ${response.statusText}`;
+                const message = `Une erreur est survenue : ${response.statusText}`;
                 window.alert(message);
                 return;
             }
@@ -34,7 +34,7 @@ function TatoueurProfil() {
             <div className={`d-flex flex-column card p-20 ${styles2.contentCard} `}>
                 <p>Nom : {tatoueur.name} </p>
                 <p>Addresse : {tatoueur.address} </p>
-                <p>Identifiant : {tatoueur._id} </p>
+                <p>Identifiant : {id} </p>
                 <p>Site web : <a href={tatoueur.website} target='_blank'>{tatoueur.website}</a> </p>
                 <h3>Avis : </h3>
 
