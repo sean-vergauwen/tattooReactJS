@@ -1,17 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 export default function Create() {
   const [form, setForm] = useState({
     name: "",
     position: "",
     level: "",
+    styleId: "",
   });
+  const [records, setRecords] = useState([]);
+    useEffect(() => {
+      async function getRecords() {
+        const response = await fetch(`http://localhost:5001/style/`);
+        if (!response.ok) {
+          const message = `An error occurred: ${response.statusText}`;
+          window.alert(message);
+          return;
+        }
+        const records = await response.json();
+        setRecords(records);
+      }
+      getRecords();
+    }, []);
+    console.log(records);
   const navigate = useNavigate();
   // These methods will update the state properties.
   function updateForm(value) {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
+    
   }
   // This function will handle the submission.
   async function onSubmit(e) {
@@ -134,6 +151,22 @@ export default function Create() {
                   value={form.website}
                   onChange={(e) => updateForm({ website: e.target.value })}
                 />
+              </div>
+              <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="style">Style de Tatouage</label>
+                <select
+                  className="form-control"
+                  id="style"
+                  value={form.styleId}
+                  onChange={(e) => updateForm({ styleId: e.target.value })}
+                >
+                  <option value="">Sélectionnez un style</option>
+                  {records.map((record) => (
+                    <option key={record._id} value={record._id}>
+                      {record.nomStyle}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="form-outline mb-4 d-flex justify-content-center ">
                 <input

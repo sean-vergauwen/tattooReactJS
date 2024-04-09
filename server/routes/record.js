@@ -53,7 +53,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
     photoDeProfil: req.body.photoDeProfil,
     portofolio: [req.body.portofolio],
     description: req.body.description,
-    styles: [],
+    styles: req.body.styleId ? [req.body.styleId] : [],
     avis: [{}, {}],
     note: req.body.note,
   };
@@ -118,6 +118,21 @@ recordRoutes.route("/:id").delete((req, response) => {
     console.log("1 document deleted");
     response.json(obj);
   });
+});
+
+recordRoutes.route("/style").get(async function (req, response) {
+  let db_connect = dbo.getDb();
+
+  try {
+    var style = await db_connect
+      .collection("styles")
+      .find({})
+      .toArray();
+    response.json(style);
+  } catch (e) {
+    console.log("An error occurred pulling the style. " + e);
+  }
+
 });
 
 module.exports = recordRoutes;
