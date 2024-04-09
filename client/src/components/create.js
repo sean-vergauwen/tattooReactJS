@@ -162,7 +162,7 @@ export default function Create() {
                 >
                   <option value="">Sélectionnez un style</option>
                   {records.map((record) => (
-                    <option key={record._id} value={record._id}>
+                    <option key={record.nomStyle} value={record.nomStyle}>
                       {record.nomStyle}
                     </option>
                   ))}
