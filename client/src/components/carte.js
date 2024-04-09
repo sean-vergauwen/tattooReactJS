@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import L from 'leaflet';
+import L, { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import customIcon from '../images/points.png'; // Chemin vers votre icône personnalisée
+import styles from './content.module.css'
+
 
 export default function MapWithMarkers() {
   const [records, setRecords] = useState([]);
@@ -74,6 +76,11 @@ export default function MapWithMarkers() {
   }, [records]);
 
   return (
-    <div ref={mapRef} style={{ width: '800px', height: '400px' }}></div>
+    <div className={`my-30 d-flex flex-row justify-content-center allign-items-center `}>
+      <div className={`my-30 flex-fill allign-items-center card p-20 ${styles.contentCard}`} >
+        <h2 >Carte</h2>
+        <div className={`card p-20 my-30 `} ref={mapRef} style={{ width: '800px', height: '400px' }}></div>
+      </div>
+    </div>
   );
 }
