@@ -83,6 +83,32 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     });
 });
 
+
+// Ajout d'un nouvel avis 
+recordRoutes.route("/avis/:id").post(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { _id: new ObjectId(req.params.id) };
+  let newAvis = {
+    $push: {
+      avis: {
+        _id: "Id de l'utilisateur",
+        avis: req.body.avis, // L'avis laissé par l'utilisateur
+
+      }
+    }
+  };
+
+  db_connect.collection("tatoueurs").findOneAndUpdate(myquery, newAvis, { returnNewDocument: true }, function (err, res) {
+    if (err) {
+      console.error("Erreur lors de l'ajout de l'avis:", err);
+      response.status(500).send("Une erreur s'est produite lors de l'ajout de l'avis.");
+    } else {
+      console.log("Avis ajouté avec succès");
+      response.json(res.value);
+    }
+  });
+});
+
 // This section will help you delete a record
 recordRoutes.route("/:id").delete((req, response) => {
   let db_connect = dbo.getDb();

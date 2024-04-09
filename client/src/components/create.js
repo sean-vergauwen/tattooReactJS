@@ -1,57 +1,57 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 export default function Create() {
- const [form, setForm] = useState({
-   name: "",
-   position: "",
-   level: "",
- });
- const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+    position: "",
+    level: "",
+  });
+  const navigate = useNavigate();
   // These methods will update the state properties.
- function updateForm(value) {
-   return setForm((prev) => {
-     return { ...prev, ...value };
-   });
- }
+  function updateForm(value) {
+    return setForm((prev) => {
+      return { ...prev, ...value };
+    });
+  }
   // This function will handle the submission.
- async function onSubmit(e) {
-   e.preventDefault();
+  async function onSubmit(e) {
+    e.preventDefault();
     // When a post request is sent to the create url, we'll add a new record to the database.
-   const newPerson = { ...form };
+    const newPerson = { ...form };
     await fetch("http://localhost:5001/record/add", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(newPerson),
-   })
-   .catch(error => {
-     window.alert(error);
-     return;
-   });
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPerson),
+    })
+      .catch(error => {
+        window.alert(error);
+        return;
+      });
     setForm({ name: "", position: "", level: "" });
-   navigate("/");
- }
+    navigate("/");
+  }
   // This following section will display the form that takes the input from the user.
- return (
-  <div>
+  return (
+    <div>
       <div id="container" class="d-flex">
-        <div class="container d-flex justify-content-center align-items-center min-vh-100">
-          <div class="row border rounded-3 p-3 bg-white shadow box-area">
-            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                <div
-                  class="nav-link p-3 mb-2 bg-dark text-white "
-                  id="tab-login"
-                  data-mdb-pill-init
-                  href="#pills-login"
-                  role="tab"
-                  aria-controls="pills-login"
-                  aria-selected="true"
-                  > UTILISATEUR</div>
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
+          <div className="row border rounded-3 p-3 bg-white shadow box-area">
+            <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+              <div
+                className="nav-link p-3 mb-2 bg-dark text-white "
+                id="tab-login"
+                data-mdb-pill-init
+                href="#pills-login"
+                role="tab"
+                aria-controls="pills-login"
+                aria-selected="true"
+              > UTILISATEUR</div>
             </ul>
             <form onSubmit={onSubmit}>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="username">Nom d'utilisateur</label>
+                <label className="form-label" htmlFor="username">Nom d'utilisateur</label>
                 <input
                   type="text"
                   className="form-control"
@@ -61,7 +61,7 @@ export default function Create() {
                 />
               </div>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="usernamepassword">Mot de passe</label>
+                <label className="form-label" htmlFor="usernamepassword">Mot de passe</label>
                 <input
                   type="text"
                   className="form-control"
@@ -81,22 +81,22 @@ export default function Create() {
           </div>
         </div>
 
-        <div class="container d-flex justify-content-center align-items-center min-vh-100">
-          <div class="row border rounded-3 p-3 bg-white shadow box-area">
-            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                <div
-                  class="nav-link p-3 mb-2 bg-dark text-white"
-                  id="tab-login"
-                  data-mdb-pill-init
-                  href="#pills-login"
-                  role="tab"
-                  aria-controls="pills-login"
-                  aria-selected="true"
-                  >TATOUEUR</div>
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
+          <div className="row border rounded-3 p-3 bg-white shadow box-area">
+            <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+              <div
+                className="nav-link p-3 mb-2 bg-dark text-white"
+                id="tab-login"
+                data-mdb-pill-init
+                href="#pills-login"
+                role="tab"
+                aria-controls="pills-login"
+                aria-selected="true"
+              >TATOUEUR</div>
             </ul>
             <form onSubmit={onSubmit}>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="name">Nom de tatoueur</label>
+                <label className="form-label" htmlFor="name">Nom de tatoueur</label>
                 <input
                   type="text"
                   className="form-control"
@@ -106,7 +106,7 @@ export default function Create() {
                 />
               </div>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="password">Mot de passe</label>
+                <label className="form-label" htmlFor="password">Mot de passe</label>
                 <input
                   type="text"
                   className="form-control"
@@ -116,7 +116,7 @@ export default function Create() {
                 />
               </div>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="address">Adresse</label>
+                <label className="form-label" htmlFor="address">Adresse</label>
                 <input
                   type="text"
                   className="form-control"
@@ -126,7 +126,7 @@ export default function Create() {
                 />
               </div>
               <div className="form-outline mb-4">
-                <label class="form-label" htmlFor="website">Site web</label>
+                <label className="form-label" htmlFor="website">Site web</label>
                 <input
                   type="text"
                   className="form-control"
@@ -146,6 +146,6 @@ export default function Create() {
           </div>
         </div>
       </div>
-  </div>
- );
+    </div>
+  );
 }
