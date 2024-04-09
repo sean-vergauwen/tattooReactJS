@@ -1,0 +1,40 @@
+.btn {
+    max-width: 200px;
+    transition: 0.2s opacity;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    border: 2px solid var(--primary);
+}
+
+.btn-reverse-primary {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background-color: white;
+}
+
+.card {
+    border-radius: 20px;
+    background-color: white;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.textarea-avis {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    resize: vertical;
+}

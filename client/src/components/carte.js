@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import L from 'leaflet';
+import L, { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import customIcon from '/Users/leonderyckel/Documents/github/tattooReactJS/client/src/images/points.png'; // Chemin vers votre icône personnalisée
+import customIcon from '../images/points.png'; // Chemin vers votre icône personnalisée
+import styles from './content.module.css'
+
 
 export default function MapWithMarkers() {
   const [records, setRecords] = useState([]);
@@ -47,7 +49,20 @@ export default function MapWithMarkers() {
         const data = await response.json();
         if (data && data.length > 0) {
           const { lat, lon } = data[0];
-          L.marker([lat, lon], { icon: customMarkerIcon }).addTo(map).bindPopup(record.name);
+          const marker = L.marker([lat, lon], { icon: customMarkerIcon }).addTo(map);
+
+          // Crée un élément HTML pour le popup qui inclut un gestionnaire de clic
+          const popupContent = `<a href="/tatoueur/${record._id}" style="text-decoration: none; color: blue;">${record.name}</a>`;
+
+          marker.bindPopup(popupContent);
+
+          // Ajoute un gestionnaire de clic directement sur le contenu du popup
+          marker.on('popupopen', () => {
+            document.querySelector(`a[href='/tatoueur/${record._id}']`).addEventListener('click', (e) => {
+              e.preventDefault(); // Empêche la navigation par défaut du lien
+              window.location.href = e.target.getAttribute('href'); // Redirige vers l'URL du tatoueur
+            });
+          });
         }
       } catch (error) {
         console.error('Error fetching coordinates:', error);
@@ -61,6 +76,11 @@ export default function MapWithMarkers() {
   }, [records]);
 
   return (
-    <div ref={mapRef} style={{ width: '800px', height: '400px' }}></div>
+    <div className={`my-30 d-flex flex-row justify-content-center allign-items-center `}>
+      <div className={`my-30 flex-fill allign-items-center card p-20 ${styles.contentCard}`} >
+        <h2 >Carte</h2>
+        <div className={`card p-20 my-30 `} ref={mapRef} style={{ width: '800px', height: '400px' }}></div>
+      </div>
+    </div>
   );
 }
