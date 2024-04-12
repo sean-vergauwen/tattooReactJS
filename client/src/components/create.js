@@ -1,40 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import Select from 'react-select';
+
 export default function Create() {
+  // Notez que l'état initial pour styleId est maintenant un tableau
   const [form, setForm] = useState({
     name: "",
     position: "",
     level: "",
-    styleId: "",
+    styleId: [],
   });
   const [records, setRecords] = useState([]);
-    useEffect(() => {
-      async function getRecords() {
-        const response = await fetch(`http://localhost:5001/style/`);
-        if (!response.ok) {
-          const message = `An error occurred: ${response.statusText}`;
-          window.alert(message);
-          return;
-        }
-        const records = await response.json();
-        setRecords(records);
+
+  const styleOptions = records.map((record) => ({
+    value: record._id,
+    label: record.nomStyle
+  }));
+
+  useEffect(() => {
+    async function getRecords() {
+      const response = await fetch(`http://localhost:5001/style/`);
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
       }
-      getRecords();
-    }, []);
-    console.log(records);
+      const records = await response.json();
+      setRecords(records);
+    }
+    getRecords();
+  }, []);
+
   const navigate = useNavigate();
-  // These methods will update the state properties.
+
   function updateForm(value) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
-    
+    return setForm((prev) => ({ ...prev, ...value }));
   }
-  // This function will handle the submission.
+
+  // Cette fonction est mise à jour pour gérer les multiples sélections
+  function handleStyleChange(selectedOptions) {
+    // Mise à jour de 'styleId' avec les identifiants sélectionnés
+    const styleIds = selectedOptions.map((option) => option.value);
+    updateForm({ styleId: styleIds });
+  }
+
   async function onSubmit(e) {
     e.preventDefault();
-    // When a post request is sent to the create url, we'll add a new record to the database.
+    // Ici, la soumission inclut l'ensemble de l'état du formulaire, y compris le tableau des styles sélectionnés
     const newPerson = { ...form };
+
     await fetch("http://localhost:5001/record/add", {
       method: "POST",
       headers: {
@@ -42,11 +56,13 @@ export default function Create() {
       },
       body: JSON.stringify(newPerson),
     })
-      .catch(error => {
-        window.alert(error);
-        return;
-      });
-    setForm({ name: "", position: "", level: "" });
+    .catch(error => {
+      window.alert(error);
+      return;
+    });
+
+    // Réinitialiser le formulaire après la soumission
+    setForm({ name: "", position: "", level: "", styleId: [] });
     navigate("/");
   }
   // This following section will display the form that takes the input from the user.
@@ -154,19 +170,15 @@ export default function Create() {
               </div>
               <div className="form-outline mb-4">
                 <label className="form-label" htmlFor="style">Style de Tatouage</label>
-                <select
-                  className="form-control"
-                  id="style"
-                  value={form.styleId}
-                  onChange={(e) => updateForm({ styleId: e.target.value })}
-                >
-                  <option value="">Sélectionnez un style</option>
-                  {records.map((record) => (
-                    <option key={record.nomStyle} value={record.nomStyle}>
-                      {record.nomStyle}
-                    </option>
-                  ))}
-                </select>
+                <Select
+      isMulti
+      name="styles"
+      options={styleOptions}
+      className="basic-multi-select"
+      classNamePrefix="select"
+      onChange={handleStyleChange}
+      value={styleOptions.filter(option => form.styleId.includes(option.value))}
+    />
               </div>
               <div className="form-outline mb-4 d-flex justify-content-center ">
                 <input
