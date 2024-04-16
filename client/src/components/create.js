@@ -13,7 +13,7 @@ export default function Create() {
   const [records, setRecords] = useState([]);
 
   const styleOptions = records.map((record) => ({
-    value: record._id,
+    value: record.nomStyle,
     label: record.nomStyle
   }));
 
@@ -39,9 +39,8 @@ export default function Create() {
 
   // Cette fonction est mise à jour pour gérer les multiples sélections
   function handleStyleChange(selectedOptions) {
-    // Mise à jour de 'styleId' avec les identifiants sélectionnés
-    const styleIds = selectedOptions.map((option) => option.value);
-    updateForm({ styleId: styleIds });
+    const styleNames = selectedOptions.map((option) => option.value); // option.value contient maintenant le nom du style
+    updateForm({ styleId: styleNames });
   }
 
   async function onSubmit(e) {
