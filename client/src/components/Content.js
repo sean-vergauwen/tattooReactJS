@@ -1,31 +1,13 @@
 import React, { useEffect, useState } from "react";
-import styles from './content.module.css'
+import styles from './content.module.css';
 import Tatoueurs from './Tatoueurs.js';
-import { data } from "../data/tattoo.js"
 
-
-
-const Record = (props) => (
-  <tr>
-    <td>{props.record.name}</td>
-    <td>{props.record.address}</td>
-    <td>
-      <a href={props.record.website} target="_blank" rel="noopener noreferrer">
-        {props.record.website}
-      </a>
-    </td>
-  </tr>
-);
-
-export default function RecordList({ }) {
+export default function RecordList() {
   const [records, setRecords] = useState([]);
-  const [filter, setFilter] = useState('')
-  function handleInput(e) {
-    const filter = e.target.value
-    setFilter(filter.trim().toLowerCase());
-  }
+  const [allStyles, setAllStyles] = useState([]); // État pour stocker tous les styles uniques
+  const [selectedStyle, setSelectedStyle] = useState(''); // État pour le style sélectionné pour le filtrage
+  const [filter, setFilter] = useState(''); // État pour le filtrage du nom
 
-  // Fetch records from the database.
   useEffect(() => {
     async function getRecords() {
       const response = await fetch(`http://localhost:5001/record/`);
@@ -36,54 +18,58 @@ export default function RecordList({ }) {
       }
       const records = await response.json();
       setRecords(records);
+
+      // Extraction des styles uniques pour le menu déroulant de filtrage
+      const loadedStyles = Array.from(new Set(records.flatMap(record => record.styles)));
+      setAllStyles(loadedStyles);
     }
     getRecords();
   }, []);
 
-  // Delete a record
-  async function deleteRecord(id) {
-    await fetch(`http://localhost:5001/${id}`, {
-      method: "DELETE"
-    });
-    const newRecords = records.filter((el) => el._id !== id);
-    setRecords(newRecords);
+  function handleStyleChange(e) {
+    setSelectedStyle(e.target.value);
   }
 
-  // Map out the records on the table
-  function recordList() {
-    return records.map((record) => (
-      <Record
-        record={record}
-        deleteRecord={() => deleteRecord(record._id)}
-        key={record._id}
-      />
-    ));
+  // Gère la saisie dans la barre de recherche pour le filtrage par nom
+  function handleInput(e) {
+    setFilter(e.target.value.toLowerCase());
   }
 
-  // Display the table with the records of individuals
+  // Filtrage des tatoueurs par nom et style
+  function filteredRecords() {
+    return records
+      .filter((record) =>
+        record.name.toLowerCase().includes(filter) &&
+        (selectedStyle ? record.styles.includes(selectedStyle) : true)
+      )
+      .map((record) => (
+        <Tatoueurs
+          key={record._id}
+          id={record._id}
+          name={record.name}
+          photoDeProfil={record.photoDeProfil}
+          address={record.address}
+        />
+      ));
+  }
+
   return (
-
-
-
-
-
     <div className="flex-fill container p-20">
-
-      <h1 className='my-30'>Découvrez nos tatoueurs </h1>
-      <div className={`d-flex flex-column card p-20 ${styles.contentCard} `}>
-        <div className={`my-30 d-flex flex-row justify-content-center allign-items-center ${styles.searchBar}`}>
+      <h1 className='my-30'>Découvrez nos tatoueurs</h1>
+      <div className={`d-flex flex-column card p-20 ${styles.contentCard}`}>
+        <div className={`my-30 d-flex flex-row justify-content-center align-items-center ${styles.searchBar}`}>
           <input onInput={handleInput} className='flex-fill' type="text" placeholder='Rechercher' />
-        </div>
-        <div className={styles.grid} >
-          {data
-            .filter((r) => r.name.toLowerCase().startsWith(filter))
-            .map((r) => (
-              <Tatoueurs id={r._id} name={r.name} photoDeProfil={r.photoDeProfil} address={r.address} />
+          <select onChange={handleStyleChange} className='flex-fill'>
+            <option value="">Tous les styles</option>
+            {allStyles.map(style => (
+              <option key={style} value={style}>{style}</option>
             ))}
+          </select>
+        </div>
+        <div className={styles.grid}>
+          {filteredRecords()}
         </div>
       </div>
     </div>
-
-
   );
 }

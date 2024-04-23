@@ -6,6 +6,7 @@ import Navbar from "./components/navbar";
 import Content from "./components/Content";
 import Edit from "./components/edit";
 import Create from "./components/create";
+import Connect from "./components/connect";
 import Carte from "./components/carte";
 import TatoueurProfil from "./components/TatoueurProfil";
 import styles from "./App.module.css";
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/create" element={<Create />} />
         <Route path="/carte" element={<Carte />} />
+        <Route path="/connect" element={<Connect />} />
         <Route path="/tatoueur/:id" element={<TatoueurProfil />} />
       </Routes>
 
