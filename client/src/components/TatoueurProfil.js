@@ -37,7 +37,7 @@ function TatoueurProfil() {
             });
 
             if (!response.ok) {
-                console.log("je suis ici")
+
                 throw new Error(`Une erreur est survenue : ${response.statusText}`);
 
             }
@@ -68,6 +68,7 @@ function TatoueurProfil() {
                 <p>Addresse : {tatoueur.address} </p>
                 <p>Identifiant : {id} </p>
                 <p>Site web : <a href={tatoueur.website} target='_blank'>{tatoueur.website}</a> </p>
+                <button onClick={() => setShowReviewInput(true)} className='btn btn-primary d-flex  p-10 mb-20' >Ajouter en favoris</button>
                 <h3 className='my-30'>Avis : </h3>
                 {showReviewInput ? (
                     <>
@@ -77,7 +78,7 @@ function TatoueurProfil() {
                             onChange={(e) => setReviewText(e.target.value)}
                             placeholder="Laissez votre avis ici..."
                         />
-                        <button onClick={handleSaveReview} className='btn btn-primary d-flex   p-10 mb-20'>Enregistrer l'avis</button>
+                        <button className='btn btn-primary d-flex   p-10 mb-20'>Enregistrer l'avis</button>
                     </>
                 ) : (
                     <button onClick={() => setShowReviewInput(true)} className='btn btn-primary d-flex  p-10 mb-20' >Laisser un avis</button>
