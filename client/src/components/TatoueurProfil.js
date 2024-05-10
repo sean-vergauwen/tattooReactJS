@@ -78,9 +78,12 @@ function TatoueurProfil() {
                             onChange={(e) => setReviewText(e.target.value)}
                             placeholder="Laissez votre avis ici..."
                         />
-                        <button className='btn btn-primary d-flex   p-10 mb-20'>Enregistrer l'avis</button>
+                    
+                        <button onClick={handleSaveReview} className='btn btn-primary d-flex   p-10 mb-20'>Enregistrer l'avis</button>
                     </>
                 ) : (
+                
+
                     <button onClick={() => setShowReviewInput(true)} className='btn btn-primary d-flex  p-10 mb-20' >Laisser un avis</button>
                 )}
                 <div className={`d-flex flex-column card p-20 ${styles2.contentCard} `}>

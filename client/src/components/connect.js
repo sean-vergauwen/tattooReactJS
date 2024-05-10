@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import Select from 'react-select';
+
 
 export default function Connect() {
   // Notez que l'état initial pour styleId est maintenant un tableau
