@@ -21,6 +21,36 @@ export default function Connect() {
 
   const navigate = useNavigate();
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3000/user/user-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userLogin),
+      });
+      const responseData = await response.json();
+      if (responseData.statusCode === 200) {
+        localStorage.setItem(
+          "token",
+          JSON.stringify(responseData?.data?.token)
+        );
+        setStoragedata(responseData);
+        localStorage.setItem("userData", JSON.stringify(responseData));
+        navigate("/");
+      } else {
+        window.alert(responseData?.message);
+      }
+      setUserLogin({ userName: "", password: "" });
+    } catch (error) {
+      console.error(error);
+      window.alert(error);
+    }
+  };
+
   const onSubmitArtist = async (e) => {
     e.preventDefault();
     const atristLogin = {
@@ -53,36 +83,6 @@ export default function Connect() {
         window.alert(responseData?.message);
       }
       setForm({ userName: "", password: "" });
-    } catch (error) {
-      console.error(error);
-      window.alert(error);
-    }
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("http://localhost:3000/user/user-login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userLogin),
-      });
-      const responseData = await response.json();
-      if (responseData.statusCode === 200) {
-        localStorage.setItem(
-          "token",
-          JSON.stringify(responseData?.data?.token)
-        );
-        setStoragedata(responseData);
-        localStorage.setItem("userData", JSON.stringify(responseData));
-        navigate("/");
-      } else {
-        window.alert(responseData?.message);
-      }
-      setUserLogin({ userName: "", password: "" });
     } catch (error) {
       console.error(error);
       window.alert(error);

@@ -51,6 +51,32 @@ function TatoueurProfil() {
     }
   }, [id]);
 
+  const handleSaveReview = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/user/comment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userData?.data?.token}`,
+        },
+        body: JSON.stringify({ id: id, comment: reviewText }),
+      });
+
+      if (response.status === 200) {
+        handleAllData();
+      } else {
+        throw new Error(`Une erreur est survenue : ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement de l'avis:", error);
+      window.alert("Erreur lors de l'enregistrement de l'avis.");
+    } finally {
+      // Réinitialise le formulaire d'avis indépendamment du résultat de la requête
+      setShowReviewInput(false);
+      setReviewText("");
+    }
+  };
+
   const handleAddFavourite = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/user/like/${id}`, {
@@ -81,31 +107,7 @@ function TatoueurProfil() {
     return <div>Chargement des détails du tatoueur...</div>;
   }
 
-  const handleSaveReview = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/user/comment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userData?.data?.token}`,
-        },
-        body: JSON.stringify({ id: id, comment: reviewText }),
-      });
-
-      if (response.status === 200) {
-        handleAllData();
-      } else {
-        throw new Error(`Une erreur est survenue : ${response.statusText}`);
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'enregistrement de l'avis:", error);
-      window.alert("Erreur lors de l'enregistrement de l'avis.");
-    } finally {
-      // Réinitialise le formulaire d'avis indépendamment du résultat de la requête
-      setShowReviewInput(false);
-      setReviewText("");
-    }
-  };
+  console.log("reviewText", tatoueur);
 
   return (
     <div className="flex-fill container p-20">
