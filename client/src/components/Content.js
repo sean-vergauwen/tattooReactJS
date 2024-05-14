@@ -58,10 +58,6 @@ export default function RecordList({}) {
     setUserData(storageData);
   }, []);
 
-  // useEffect(() => {
-  //   window.location.reload();
-  // }, []);
-
   async function handleStyleChange(selectedOptions) {
     setSelectedFilter(selectedOptions?.label);
     if (selectedOptions) {
