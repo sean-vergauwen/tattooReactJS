@@ -6,17 +6,17 @@ import userController from "../Controllers/userController";
 import requestParamsMiddleware from "../Middlewares/reqParamsMiddleware";
 import authMiddleware from "../Middlewares/authMiddleware";
 
-router.post(
-  "/user-login",
-  requestBodyMiddleware(userValidation.loginValidation),
-  userController.login
-);
-
 router.get(
   "/tattoo/:id",
   authMiddleware.verifyToken,
   requestParamsMiddleware(userValidation.idValidation),
   userController.getTattoo
+);
+
+router.post(
+  "/user-login",
+  requestBodyMiddleware(userValidation.loginValidation),
+  userController.login
 );
 
 router.get(
