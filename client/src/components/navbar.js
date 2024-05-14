@@ -27,12 +27,12 @@ export default function Navbar() {
     await window.location.reload();
   };
 
-  const handleLogout=()=>{
-    localStorage.clear()
-     window.location.reload();
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
 
-    navigate("/connect")
-  }
+    navigate("/connect");
+  };
 
   return (
     <nav className="navbar navbar-expand-lg text-light bg-dark ">
@@ -56,7 +56,7 @@ export default function Navbar() {
           id="navbarSupportedContent"
         >
           <ul class="navbar-nav mr-auto">
-            {(storageData && location.pathName !== "connect") && (
+            {storageData && location.pathName !== "connect" && (
               <>
                 <li class="nav-item border rounded border-light mx-3">
                   <a
@@ -86,7 +86,7 @@ export default function Navbar() {
                 </a>
               </li>
             )}
-            {storageData == "" && <><li class="nav-item border rounded border-light mx-3">
+            <li class="nav-item border rounded border-light mx-3">
               <a
                 class="nav-link text-light btn"
                 onClick={handleNavigateConnectPage}
@@ -94,6 +94,7 @@ export default function Navbar() {
                 Se connecter
               </a>
             </li>
+            {/* {storageData == "" && ( */}
             <li class="nav-item border rounded border-light mx-3">
               <a
                 class="nav-link text-light btn"
@@ -101,10 +102,15 @@ export default function Navbar() {
               >
                 Créer un compte
               </a>
-            </li></>}
-            {storageData != "" &&<li class="nav-item border rounded border-light mx-3">
-              <a class="nav-link text-light btn" onClick={handleLogout}>Se Deconnector</a>
-            </li>}
+            </li>
+            {/* )} */}
+            {storageData != "" && (
+              <li class="nav-item border rounded border-light mx-3">
+                <a class="nav-link text-light btn" onClick={handleLogout}>
+                  Se Deconnector
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>

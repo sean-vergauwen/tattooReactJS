@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const router = express_1.default.Router();
+const reqBodyMiddleware_1 = __importDefault(require("../Middlewares/reqBodyMiddleware"));
+const userValidation_1 = __importDefault(require("../Validations/userValidation"));
+const userController_1 = __importDefault(require("../Controllers/userController"));
+const reqParamsMiddleware_1 = __importDefault(require("../Middlewares/reqParamsMiddleware"));
+const authMiddleware_1 = __importDefault(require("../Middlewares/authMiddleware"));
+router.post("/user-login", (0, reqBodyMiddleware_1.default)(userValidation_1.default.loginValidation), userController_1.default.login);
+router.get("/tattoo/:id", authMiddleware_1.default.verifyToken, (0, reqParamsMiddleware_1.default)(userValidation_1.default.idValidation), userController_1.default.getTattoo);
+router.get("/all-tattoos", authMiddleware_1.default.verifyToken, userController_1.default.getAllTattoo);
+router.get("/like/:id", authMiddleware_1.default.verifyToken, (0, reqParamsMiddleware_1.default)(userValidation_1.default.idValidation), userController_1.default.likeTattoo);
+router.get("/all-likes", authMiddleware_1.default.verifyToken, userController_1.default.allLikeTattoos);
+router.post("/comment", authMiddleware_1.default.verifyToken, (0, reqBodyMiddleware_1.default)(userValidation_1.default.commentValidation), userController_1.default.comment);
+router.post("/all-by-style", authMiddleware_1.default.verifyToken, (0, reqBodyMiddleware_1.default)(userValidation_1.default.styleValidation), userController_1.default.getByStyle);
+exports.default = router;
