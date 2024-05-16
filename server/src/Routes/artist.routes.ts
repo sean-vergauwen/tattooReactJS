@@ -23,8 +23,8 @@ router.post(
 router.post(
   "/add-user",
   requestBodyMiddleware(userValidation.loginValidation),
-  auth.verifyToken,
-  auth.checkRole([USER_ROLES.ADMIN]),
+  // auth.verifyToken,
+  // auth.checkRole([USER_ROLES.ADMIN]),
   artistController.addUser
 );
 

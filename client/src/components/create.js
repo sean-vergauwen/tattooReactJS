@@ -86,13 +86,26 @@ export default function Create() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userData?.data?.token}`,
+          // Authorization: `Bearer ${userData?.data?.token}`,
         },
         body: JSON.stringify(newPerson),
       });
       const responseData = await response.json();
-      if (responseData.status === 200) {
-        navigate("/");
+      if (responseData.statusCode === 200) {
+        const response = await fetch("http://localhost:3000/user/user-login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${userData?.data?.token}`,
+          },
+          body: JSON.stringify(newPerson),
+        });
+        const responseData = await response.json();
+        if (responseData.statusCode === 200) {
+          localStorage.setItem("userData", JSON.stringify(responseData));
+
+          navigate("/");
+        }
       } else {
         window.alert(responseData?.message);
       }
