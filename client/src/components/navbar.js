@@ -107,7 +107,7 @@ export default function Navbar() {
             {storageData != "" && (
               <li class="nav-item border rounded border-light mx-3">
                 <a class="nav-link text-light btn" onClick={handleLogout}>
-                  Se Deconnector
+                  Se Deconnecter
                 </a>
               </li>
             )}
