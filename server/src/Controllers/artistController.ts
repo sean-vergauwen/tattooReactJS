@@ -130,7 +130,7 @@ const addTattoo = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { name, description } = req.body;
+    const { name, description, tattooStyle } = req.body;
     const filenames = req.filenames;
     const user = req.user;
 
@@ -140,6 +140,7 @@ const addTattoo = async (
       name,
       description,
       image,
+      tattooStyle,
     });
     await newTattoo.save();
 

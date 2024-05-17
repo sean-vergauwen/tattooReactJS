@@ -64,5 +64,12 @@ const addTattooValidation = joi_1.default.object({
         "string.empty": validationMessages_1.default.STRING_EMPTY.replace("ADD:", "Description"),
         "any.required": validationMessages_1.default.REQUIRED.replace("ADD:", "Description"),
     }),
+    tattooStyle: joi_1.default.string()
+        .required()
+        .messages({
+        "string.base": validationMessages_1.default.STRING_BASE.replace("ADD:", "tattooStyle"),
+        "string.empty": validationMessages_1.default.STRING_EMPTY.replace("ADD:", "tattooStyle"),
+        "any.required": validationMessages_1.default.REQUIRED.replace("ADD:", "tattooStyle"),
+    }),
 });
 exports.default = { registrationValidation, addTattooValidation };

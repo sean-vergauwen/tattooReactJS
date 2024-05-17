@@ -114,7 +114,7 @@ const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 });
 const addTattoo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, description } = req.body;
+        const { name, description, tattooStyle } = req.body;
         const filenames = req.filenames;
         const user = req.user;
         const image = `${process.env.APP_BASE_URL}/get/${user.userName}/${filenames}`;
@@ -122,6 +122,7 @@ const addTattoo = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             name,
             description,
             image,
+            tattooStyle,
         });
         yield newTattoo.save();
         yield artistModel_1.default.findOneAndUpdate({ userName: user.userName }, { $push: { tattoos: newTattoo._id } });

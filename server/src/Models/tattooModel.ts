@@ -6,6 +6,7 @@ export interface TattooInterface extends Document {
   image: string;
   likes: Types.ObjectId[];
   comments: Types.ObjectId[];
+  tattooStyle: string;
 }
 
 const tattooSchema: Schema<TattooInterface> = new Schema(
@@ -19,6 +20,7 @@ const tattooSchema: Schema<TattooInterface> = new Schema(
       ref: "Comments",
       required: false,
     },
+    tattooStyle: { type: String },
   },
   {
     timestamps: true,

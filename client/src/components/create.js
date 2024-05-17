@@ -58,21 +58,14 @@ export default function Create() {
   }
 
   // Cette fonction est mise à jour pour gérer les multiples sélections
-  function handleStyleChange(selectedOptions) {
-    let selectedStyleIds = "";
-    if (Array.isArray(selectedOptions)) {
-      selectedStyleIds = selectedOptions
-        .map((option) => option.value)
-        .join(", ");
-    } else {
-      // Handle the case where selectedOptions is not an array
-      console.error("Selected options is not an array:", selectedOptions);
-    }
+
+  const handleStyleChange = (e) => {
+    const selectedValue = e.target.value;
     setForm((prevForm) => ({
       ...prevForm,
-      tattooStyle: selectedOptions?.label,
+      tattooStyle: selectedValue,
     }));
-  }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -133,8 +126,28 @@ export default function Create() {
         }
       );
       const responseData = await response.json();
+
       if (responseData.statusCode === 200) {
-        navigate("/");
+        const atristLogin = {
+          userName: form?.userName,
+          password: form?.password,
+        };
+        const response = await fetch(
+          "http://localhost:3000/artist/artist-login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(atristLogin),
+          }
+        );
+        const responseData = await response.json();
+        if (responseData.statusCode === 200) {
+          localStorage.setItem("userData", JSON.stringify(responseData));
+
+          navigate("/");
+        }
       } else {
         window.alert(responseData?.message);
       }
@@ -155,7 +168,6 @@ export default function Create() {
   return (
     <div>
       <div id="container" class="d-flex">
-        {/* {userData?.data?.user?.role == "Admin" && ( */}
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
           <div className="row border rounded-3 p-3 bg-white shadow box-area">
             <ul
@@ -211,13 +223,7 @@ export default function Create() {
             </form>
           </div>
         </div>
-        {/* // )} */}
-        <div
-          className="container d-flex justify-content-center align-items-center min-vh-100"
-          // style={{
-          //   display: userData?.data?.user?.role == "User" ? "none" : "block",
-          // }}
-        >
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
           <div className="row border rounded-3 p-3 bg-white shadow box-area">
             <ul
               className="nav nav-pills nav-justified mb-3"
@@ -289,23 +295,28 @@ export default function Create() {
                 <label className="form-label" htmlFor="style">
                   Style de Tatouage
                 </label>
-                {/* <Select
-                  isMulti
-                  name="styles"
-                  options={options}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  onChange={handleStyleChange}
-                  value={form?.tattooStyle}
-                /> */}
-                <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  defaultValue={options[0]}
-                  onChange={handleStyleChange}
-                  name="styles"
-                  options={options}
-                />
+                <div>
+                  <select
+                    value={form?.tattooStyle}
+                    onChange={handleStyleChange}
+                    style={{
+                      height: "40px",
+                      borderRadius: "5px",
+                      width: "100%",
+                    }}
+                  >
+                    <option value="">Select a style</option>
+                    {options.map((data) => (
+                      <option
+                        key={data.value}
+                        value={data.value}
+                        style={{ height: "40px", borderRadius: "14px" }}
+                      >
+                        {data.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
               <div className="form-outline mb-4 d-flex justify-content-center ">
                 <input type="submit" value="Créer" className="btn btn-dark" />

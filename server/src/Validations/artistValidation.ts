@@ -97,6 +97,22 @@ const addTattooValidation = Joi.object({
         "Description"
       ),
     }),
+  tattooStyle: Joi.string()
+    .required()
+    .messages({
+      "string.base": validationMessages.STRING_BASE.replace(
+        "ADD:",
+        "tattooStyle"
+      ),
+      "string.empty": validationMessages.STRING_EMPTY.replace(
+        "ADD:",
+        "tattooStyle"
+      ),
+      "any.required": validationMessages.REQUIRED.replace(
+        "ADD:",
+        "tattooStyle"
+      ),
+    }),
 });
 
 export default { registrationValidation, addTattooValidation };

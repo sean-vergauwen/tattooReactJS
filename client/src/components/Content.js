@@ -49,89 +49,23 @@ export default function RecordList({}) {
   const [filter, setFilter] = useState("");
   const [tattooData, setTattooData] = useState([]);
   const [userData, setUserData] = useState();
-  const [selectedFilter, setSelectedFilter] = useState();
-  const [filterData, setFilterData] = useState();
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [data, setData] = useState(tattooData);
 
   useEffect(() => {
     const data = localStorage.getItem("userData");
     const storageData = JSON.parse(data);
     setUserData(storageData);
-  }, []);
-
-  // useEffect(() => {
-  //   window.location.reload();
-  // }, []);
-
-  async function handleStyleChange(selectedOptions) {
-    setSelectedFilter(selectedOptions?.label);
-    if (selectedOptions) {
-      const payload = {
-        tattooStyle: "tattoo",
-      };
-      try {
-        const response = await fetch(
-          "http://localhost:3000/user/all-by-style",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${userData?.data?.token}`,
-            },
-            body: JSON.stringify(payload),
-          }
-        );
-        const data = await response.json();
-        if (response.ok) {
-          if (data.statusCode === 200) {
-            let tattooValue = [];
-            const userData = data.data.map((tatto) => {
-              tattooValue.push(...tatto?.tattoos);
-            });
-            setFilterData(tattooValue);
-          } else {
-            window.alert(data?.message);
-          }
-        } else {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-      } catch (error) {
-        console.error(error);
-        window.alert(error.message);
-      }
+    if (tattooData) {
+      setData(tattooData);
     }
-  }
+  }, [tattooData]);
 
-  const handleFilterData = async () => {
-    const payload = {
-      tattooStyle: selectedFilter,
-    };
-    try {
-      const response = await fetch("http://localhost:3000/user/all-by-style", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userData?.data?.token}`,
-        },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        if (data.statusCode === 200) {
-          let tattooData = [];
-          const userData = data.data.map((tatto) => {
-            tattooData.push(...tatto?.tattoos);
-          });
-          setTattooData(tattooData);
-        } else {
-          window.alert(data?.message);
-        }
-      } else {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error(error);
-      window.alert(error.message);
-    }
+  const handleStyleChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedFilter(selectedValue);
+    setFilter("");
+    console.log("Selected value:", selectedValue);
   };
 
   const handleAllData = () => {
@@ -165,10 +99,26 @@ export default function RecordList({}) {
     }
   };
 
-  function handleInput(e) {
-    const filter = e.target.value.trim().toLowerCase();
-    setFilter(filter);
-  }
+  const handleInput = (e) => {
+    const filterValue = e.target.value.trim().toLowerCase();
+    const userData = tattooData.filter((data) => {
+      return data?.name.toLowerCase().includes(filterValue);
+    });
+    setFilter(filterValue);
+    setData(userData);
+  };
+
+  useEffect(() => {
+    if (filter == "") {
+      handleAllData();
+    } else {
+      const userData = tattooData.filter((data) => {
+        return data?.name.toLowerCase().includes(filter);
+      });
+      setData(userData);
+      setSelectedFilter("");
+    }
+  }, [filter]);
 
   // Fetch records from the database.
   useEffect(() => {
@@ -179,6 +129,15 @@ export default function RecordList({}) {
       handleAllData();
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedFilter) {
+      const userData = tattooData.filter((data) => {
+        return data?.tattooStyle == selectedFilter;
+      });
+      setData(userData);
+    }
+  }, [selectedFilter]);
 
   // Delete a record
   async function deleteRecord(id) {
@@ -213,30 +172,38 @@ export default function RecordList({}) {
             className="flex-fill"
             type="text"
             placeholder="Rechercher"
+            value={filter}
           />
-          <Select
-            className="basic-single"
-            classNamePrefix="select"
-            // defaultValue={options[0]}
+
+          <select
+            value={selectedFilter}
             onChange={handleStyleChange}
-            name="styles"
-            options={options}
-          />
+            style={{ height: "40px", borderRadius: "14px" }}
+          >
+            <option value="">Select a style</option>
+            {options.map((data) => (
+              <option
+                key={data.value}
+                value={data.value}
+                style={{ height: "40px", borderRadius: "14px" }}
+              >
+                {data.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className={styles.grid}>
-          {tattooData
-            ?.filter((tattoo) => tattoo?.name?.toLowerCase().includes(filter))
-            .map((r) => {
-              return (
-                <Tatoueurs
-                  id={r._id}
-                  name={r.name}
-                  photoDeProfil={r.image}
-                  address={r.description}
-                />
-              );
-            })}
+          {data.map((r) => {
+            return (
+              <Tatoueurs
+                id={r._id}
+                name={r.name}
+                photoDeProfil={r.image}
+                address={r.description}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

@@ -1,10 +1,40 @@
 import React, { useState, useEffect } from "react";
 import styles from "./content.module.css";
+import Select from "react-select";
 
 export default function AddTattoo() {
+  const options = [
+    { value: "Traditionnel", label: "Traditionnel" },
+    { value: "Réaliste", label: "Réaliste" },
+    { value: "Blackwork", label: "Blackwork" },
+    { value: "Dotwork", label: "Dotwork" },
+    { value: "Géométrique", label: "Géométrique" },
+    { value: "Biomechanical", label: "Biomechanical" },
+    { value: "Celtique", label: "Celtique" },
+    { value: "Polynésien", label: "Polynésien" },
+    { value: "Minimaliste", label: "Minimaliste" },
+    { value: "Abstrait", label: "Abstrait" },
+    { value: "Mandala", label: "Mandala" },
+    { value: "Black & Grey", label: "Black & Grey" },
+    { value: "Old School", label: "Old School" },
+    { value: "Maori", label: "Maori" },
+    { value: "Pointillisme", label: "Pointillisme" },
+    { value: "Japonais", label: "Japonais" },
+    { value: "Neo traditionnel", label: "Neo traditionnel" },
+    { value: "Trash Polka", label: "Trash Polka" },
+    { value: "Sketch", label: "Sketch" },
+    { value: "Linework", label: "Linework" },
+    { value: "Surréaliste", label: "Surréaliste" },
+    { value: "Portrait", label: "Portrait" },
+    { value: "Tribal", label: "Tribal" },
+    { value: "Aquarelle", label: "Aquarelle" },
+    { value: "Horreur", label: "Horreur" },
+    { value: "Lettering", label: "Lettering" },
+  ];
   const [form, setForm] = useState({
     name: "",
     description: "",
+    tattooStyle: "",
   });
   const [image, setImage] = useState();
   const [userData, setUserData] = useState();
@@ -20,6 +50,7 @@ export default function AddTattoo() {
     formData.append("name", form.name);
     formData.append("description", form.description);
     formData.append("image", image?.image);
+    formData.append("tattooStyle", form?.tattooStyle);
 
     try {
       const response = await fetch("http://localhost:3000/artist/add-tattoo", {
@@ -56,6 +87,22 @@ export default function AddTattoo() {
       image: file,
     }));
   };
+
+  function handleStyleChange(selectedOptions) {
+    let selectedStyleIds = "";
+    if (Array.isArray(selectedOptions)) {
+      selectedStyleIds = selectedOptions
+        .map((option) => option.value)
+        .join(", ");
+    } else {
+      // Handle the case where selectedOptions is not an array
+      console.error("Selected options is not an array:", selectedOptions);
+    }
+    setForm((prevForm) => ({
+      ...prevForm,
+      tattooStyle: selectedOptions?.label,
+    }));
+  }
 
   return (
     <div
@@ -116,6 +163,17 @@ export default function AddTattoo() {
                 id="position"
                 value={form.image}
                 onChange={handleUploadImage}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="position">Select Tattoo: </label>
+              <Select
+                className="basic-single"
+                classNamePrefix="select"
+                defaultValue={options[0]}
+                onChange={handleStyleChange}
+                name="styles"
+                options={options}
               />
             </div>
 

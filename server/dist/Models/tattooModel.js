@@ -34,6 +34,7 @@ const tattooSchema = new mongoose_1.Schema({
         ref: "Comments",
         required: false,
     },
+    tattooStyle: { type: String },
 }, {
     timestamps: true,
 });
