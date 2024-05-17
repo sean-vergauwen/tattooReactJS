@@ -136,6 +136,8 @@ export default function RecordList({}) {
         return data?.tattooStyle == selectedFilter;
       });
       setData(userData);
+    } else {
+      handleAllData();
     }
   }, [selectedFilter]);
 
