@@ -6,13 +6,13 @@ import styles from "./content.module.css";
 
 export default function MapWithMarkers() {
   const [records, setRecords] = useState();
-  console.log("record", records);
   const mapRef = useRef(null); // Ref for the map container
 
   useEffect(() => {
     const data = localStorage.getItem("userData");
     if (data) {
       const storageData = JSON.parse(data);
+      console.log("storageData", storageData);
       let userObject = storageData?.data?.user;
 
       setRecords(userObject);
@@ -53,16 +53,31 @@ export default function MapWithMarkers() {
             const marker = L.marker([lat, lon], {
               icon: customMarkerIcon,
             }).addTo(map);
-            const popupContent = `<a href="/tatoueur/${records._id}" style="text-decoration: none; color: blue;">${records.userName}</a>`;
-            marker.bindPopup(popupContent);
-            marker.on("popupopen", () => {
-              document
-                .querySelector(`a[href='/tatoueur/${records._id}']`)
-                .addEventListener("click", (e) => {
-                  e.preventDefault();
-                  window.location.href = e.target.getAttribute("href");
-                });
-            });
+            if (records.tattoos[0]) {
+              const popupContent = `<a href="/tatoueur/${records.tattoos[0]}" style="text-decoration: none; color: blue;">${records.userName}</a>`;
+              marker.bindPopup(popupContent);
+              marker.on("popupopen", () => {
+                document
+                  .querySelector(`a[href='/tatoueur/${records.tattoos[0]}']`)
+                  .addEventListener("click", (e) => {
+                    e.preventDefault();
+                    window.location.href = e.target.getAttribute("href");
+                  });
+              });
+            } else {
+              const popupContent = `<a style="text-decoration: none; color: blue;">${records.userName}</a>`;
+              marker.bindPopup(popupContent);
+              marker.on("popupopen", () => {
+                document
+                  .querySelector(
+                    `a[style="text-decoration: none; color: blue;"]`
+                  )
+                  .addEventListener("click", (e) => {
+                    e.preventDefault();
+                    alert("Ajouter d’abord un tatouage");
+                  });
+              });
+            }
           }
         })
         .catch((error) => {
