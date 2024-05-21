@@ -15,7 +15,7 @@ export default function Favoris({}) {
     setUserData(storageData);
     if (storageData) {
       try {
-        fetch("http://localhost:3000/user/all-likes", {
+        fetch("http://localhost:3001/user/all-likes", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${storageData?.data?.token}`,
@@ -64,7 +64,7 @@ export default function Favoris({}) {
 
   // Delete a record
   async function deleteRecord(id) {
-    await fetch(`http://localhost:3000/${id}`, {
+    await fetch(`http://localhost:3001/${id}`, {
       method: "DELETE",
     });
     const newRecords = records.filter((el) => el._id !== id);

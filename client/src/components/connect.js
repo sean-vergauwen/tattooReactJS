@@ -25,7 +25,7 @@ export default function Connect() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/user/user-login", {
+      const response = await fetch("http://localhost:3001/user/user-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function Connect() {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/artist/artist-login",
+        "http://localhost:3001/artist/artist-login",
         {
           method: "POST",
           headers: {

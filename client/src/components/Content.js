@@ -74,7 +74,7 @@ export default function RecordList({}) {
     setUserData(storageData);
     if (storageData) {
       try {
-        fetch("http://localhost:3000/user/all-tattoos", {
+        fetch("http://localhost:3001/user/all-tattoos", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${storageData?.data?.token}`,
@@ -143,7 +143,7 @@ export default function RecordList({}) {
 
   // Delete a record
   async function deleteRecord(id) {
-    await fetch(`http://localhost:3000/${id}`, {
+    await fetch(`http://localhost:3001/${id}`, {
       method: "DELETE",
     });
     const newRecords = records.filter((el) => el._id !== id);

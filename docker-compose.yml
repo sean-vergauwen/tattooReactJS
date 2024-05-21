@@ -1,0 +1,31 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./server
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      DATABASE_URL: "mongodb+srv://supp:supp123@cluster0.181kpal.mongodb.net/tattoo_db?retryWrites=true&w=majority"
+      TOKEN_KEY: "frefberufvkvghfghgferusdjczcjcdjijewoibvdhsvbhfjdvfdv"
+      CRYPTO_KEY: "12896168354726516753762562561253462456524156423542156"
+      APP_BASE_URL: "http://localhost:3000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:

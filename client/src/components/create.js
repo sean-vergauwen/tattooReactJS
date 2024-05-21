@@ -75,7 +75,7 @@ export default function Create() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/artist/add-user", {
+      const response = await fetch("http://localhost:3001/artist/add-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export default function Create() {
       });
       const responseData = await response.json();
       if (responseData.statusCode === 200) {
-        const response = await fetch("http://localhost:3000/user/user-login", {
+        const response = await fetch("http://localhost:3001/user/user-login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -116,7 +116,7 @@ export default function Create() {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/artist/registration",
+        "http://localhost:3001/artist/registration",
         {
           method: "POST",
           headers: {
@@ -133,7 +133,7 @@ export default function Create() {
           password: form?.password,
         };
         const response = await fetch(
-          "http://localhost:3000/artist/artist-login",
+          "http://localhost:3001/artist/artist-login",
           {
             method: "POST",
             headers: {

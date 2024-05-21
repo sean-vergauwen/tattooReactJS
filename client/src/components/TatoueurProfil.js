@@ -17,7 +17,7 @@ function TatoueurProfil() {
     setUserData(storageData);
     if (storageData) {
       try {
-        fetch(`http://localhost:3000/user/tattoo/${id}`, {
+        fetch(`http://localhost:3001/user/tattoo/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${storageData?.data?.token}`,
@@ -53,7 +53,7 @@ function TatoueurProfil() {
 
   const handleSaveReview = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/user/comment`, {
+      const response = await fetch(`http://localhost:3001/user/comment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function TatoueurProfil() {
 
   const handleAddFavourite = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/user/like/${id}`, {
+      const response = await fetch(`http://localhost:3001/user/like/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

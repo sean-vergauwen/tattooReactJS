@@ -53,7 +53,7 @@ export default function AddTattoo() {
     formData.append("tattooStyle", form?.tattooStyle);
 
     try {
-      const response = await fetch("http://localhost:3000/artist/add-tattoo", {
+      const response = await fetch("http://localhost:3001/artist/add-tattoo", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${userData?.data?.token}`,
