@@ -134,7 +134,7 @@ const addTattoo = async (
     const filenames = req.filenames;
     const user = req.user;
 
-    const image = `${process.env.APP_BASE_URL}/get/${user.userName}/${filenames}`;
+    const image = `${process.env.APP_BASE_URL}get/${user.userName}/${filenames}`;
 
     const newTattoo = new Tattoo({
       name,
