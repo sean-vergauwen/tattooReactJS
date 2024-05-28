@@ -1,3 +1,3 @@
 # Projet DEV 3 
 
-Adresse du projet : http://54.37.13.182:3000/ 
+Adresse du projet : http://tattoo.l2-6.ephec-ti.be/
